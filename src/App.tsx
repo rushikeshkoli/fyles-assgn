@@ -38,8 +38,12 @@ function App() {
   const [branches, setBranches] = useState<any[]>()
   const [pageSize, setPageSize] = useState<number>(5)
   const [offset, setOffset] = useState<number>(0)
-  const [myFavourites, setMyFavourites] = useState<any[]>()
-
+  const [myFavourites, setMyFavourites] = useState(() => {
+    const stickyValue = window.localStorage.getItem('fav');
+    return stickyValue !== "undefined" && stickyValue !== null
+      ? JSON.parse(stickyValue)
+      : [];
+  });
 
   const handleBranchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setOffset(0)
@@ -109,7 +113,7 @@ function App() {
     } else {
       setMyFavourites([favBranch])
     }
-    localStorage.setItem('fav', JSON.stringify(myFavourites))
+    // localStorage.setItem('fav', JSON.stringify(myFavourites))
   }
 
   useEffect(() => {
@@ -135,9 +139,9 @@ function App() {
     }
   }, [pageSize, offset])
 
-  // useEffect(() => {
-  //   localStorage.setItem('fav', JSON.stringify(myFavourites))
-  // }, [myFavourites])
+  useEffect(() => {
+    localStorage.setItem('fav', JSON.stringify(myFavourites))
+  }, [myFavourites])
 
   useEffect(() => {
     const localFav = localStorage.getItem('fav')
