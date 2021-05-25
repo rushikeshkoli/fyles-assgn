@@ -109,7 +109,7 @@ function App() {
     } else {
       setMyFavourites([favBranch])
     }
-    // localStorage.setItem('fav', JSON.stringify(myFavourites))
+    localStorage.setItem('fav', JSON.stringify(myFavourites))
   }
 
   useEffect(() => {
@@ -135,9 +135,9 @@ function App() {
     }
   }, [pageSize, offset])
 
-  useEffect(() => {
-    localStorage.setItem('fav', JSON.stringify(myFavourites))
-  }, [myFavourites])
+  // useEffect(() => {
+  //   localStorage.setItem('fav', JSON.stringify(myFavourites))
+  // }, [myFavourites])
 
   useEffect(() => {
     const localFav = localStorage.getItem('fav')
